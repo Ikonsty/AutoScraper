@@ -22,17 +22,17 @@ class myConnection:
         try:
             self.cursor.execute(f"INSERT INTO person (id, user_name, phone) \
                     VALUES({values['id']}, '{values['user_name']}', '{values['phone']}')")
-        except Exception as e:
-            print(e)
-        self.connection.commit()
-
-    def insertAd(self, values:dict) -> None:
-        try:
-            self.cursor.execute(f"INSERT INTO advertisement (id, add_date, \
-                                    owners_num, last_operation, operation_description, \
-                                    ad_link, user_id) \
-                                VALUES({values['id']}, {values['add_date']}, {values['owners_num']} \
-                                    {values['last_operation']}, {values['operation_description']}, {values['ad_link']}, {values['user_id']})")
             self.connection.commit()
         except Exception as e:
             print(e)
+
+    def insertAd(self, values:dict) -> None:
+        # try:
+        print(values['add_date'])
+        self.cursor.execute(f"INSERT INTO advertisement (id, add_date, \
+                                owners_num, operation_description, \
+                                ad_link, user_id, last_operation) \
+                            VALUES({values['id']}, TIMESTAMP '{values['add_date']}', {values['owners_num']}, '{values['operation_description']}', '{values['ad_link']}', {values['user_id']}, {values['last_operation']})")
+        self.connection.commit()
+        # except Exception as e:
+        #     print(e)
